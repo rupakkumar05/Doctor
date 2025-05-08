@@ -11,7 +11,7 @@ export default function DoctorsPage() {
   // Function to fetch doctors based on filters
   const fetchDoctors = async () => {
     const query = `specialization=${appliedFilters.specialization}&location=${appliedFilters.location}&page=${page}`;
-    const res = await fetch(`http://localhost:5000/list-doctor-with-filter?${query}`);
+    const res = await fetch(`https://doctor-fc32.onrender.com/list-doctor-with-filter?${query}`);
     const data = await res.json();
     setDoctors(data);
   };
