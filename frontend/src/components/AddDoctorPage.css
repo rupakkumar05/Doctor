@@ -1,0 +1,64 @@
+.add-doctor-form {
+  padding: 30px 40px;
+  max-width: 600px;
+  margin: 40px auto;
+  background: linear-gradient(to right, #e0f7fa, #e3f2fd);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add-doctor-form h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 28px;
+  color: #0f172a;
+  letter-spacing: 0.5px;
+}
+
+/* Colorful Inputs */
+.add-doctor-form input {
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #00c6ff, #0072ff);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.add-doctor-form input:focus {
+  outline: none;
+  border-color: transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #42e695, #3bb2b8);
+  box-shadow: 0 0 0 3px rgba(0, 115, 255, 0.2);
+}
+
+/* Button Styling */
+.add-doctor-form button {
+  padding: 12px;
+  background: linear-gradient(to right, #00b4db, #0083b0);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.add-doctor-form button:hover {
+  background: linear-gradient(to right, #0083b0, #00b4db);
+  transform: translateY(-1px);
+}
+
+.add-doctor-form button:active {
+  transform: translateY(1px);
+}
