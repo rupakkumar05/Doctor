@@ -4,24 +4,18 @@ const cors = require('cors');
 require('dotenv').config(); // Load .env
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
 const dbUrl = process.env.ATLASDB_URL;
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB connected'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+mongoose.connect(dbUrl)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Optional: Log MongoDB queries
-// mongoose.set('debug', true);
-
-// Doctor Schema
+// Doctor Schema & Model
 const doctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   specialization: { type: String, required: true },
@@ -29,22 +23,23 @@ const doctorSchema = new mongoose.Schema({
   location: { type: String, required: true },
 });
 
-const Doctor = mongoose.model('Doctor', doctorSchema); 
+const Doctor = mongoose.model('Doctor', doctorSchema);
 
-// Route: Add Doctor
+// Routes
+
+// 1. Add Doctor
 app.post('/add-doctor', async (req, res) => {
   try {
-    console.log('📥 Incoming data:', req.body);
     const doctor = new Doctor(req.body);
     await doctor.save();
-    res.send({ message: '✅ Doctor added successfully' });
+    res.status(201).send({ message: '✅ Doctor added successfully' });
   } catch (err) {
     console.error('❌ Add doctor error:', err);
     res.status(500).send({ error: 'Failed to add doctor' });
   }
 });
 
-// Route: List Doctors with Filter + Pagination
+// 2. List Doctors with optional filters and pagination
 app.get('/list-doctor-with-filter', async (req, res) => {
   try {
     const { specialization, location, page = 1, limit = 5 } = req.query;
@@ -63,6 +58,10 @@ app.get('/list-doctor-with-filter', async (req, res) => {
   }
 });
 
-// Start Server
-app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+// Default fallback route (optional)
+app.get('/', (req, res) => {
+  res.send({ message: '🟢 API is running' });
+});
 
+// Start server
+app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
